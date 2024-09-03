@@ -1,13 +1,13 @@
 # Definiowanie plików źródłowych i bibliotek
-C_FILES         := $(wildcard src/*.c)
-CPP_FILES       := $(wildcard src/*.cpp)
+C_FILES         := $(wildcard tests/*.c)
+CPP_FILES       := $(wildcard tests/*.cpp)
 RC_FILES        := $(wildcard res/*.rc)
-O_FILES         := $(patsubst src/%.c,build/%.o,$(C_FILES)) $(patsubst src/%.cpp,build/%.o,$(CPP_FILES)) $(patsubst res/%.rc,build/%.o,$(RC_FILES))
+O_FILES         := $(patsubst tests/%.c,build/%.o,$(C_FILES)) $(patsubst tests/%.cpp,build/%.o,$(CPP_FILES)) $(patsubst res/%.rc,build/%.o,$(RC_FILES))
 LIB_FILES       := $(wildcard lib/*.a) $(wildcard lib/*.*.a)
 
 # Definiowanie flag kompilacji
 C_FLAGS         := -std=c18 -pedantic -Wextra -Wall -O3
-CPP_FLAGS       := -std=c++2a -pedantic -Wextra -Wall -O3
+CPP_FLAGS       := -std=c++2a -pedantic -Wextra -Wall -O3  
 
 # Dodanie katalogów z plikami nagłówkowymi
 INCLUDE_DIRECTORIES := -Iinclude 
@@ -24,11 +24,11 @@ app: $(BUILD_DIR) $(O_FILES)
 	g++ -mconsole $(O_FILES) -o $@ $(LIB_FILES)
 
 # Kompilacja plików .cpp do .o
-$(BUILD_DIR)/%.o: src/%.cpp | $(BUILD_DIR)
-	g++ -c $< -o $@ $(INCLUDE_DIRECTORIES) $(CPP_FLAGS)
+$(BUILD_DIR)/%.o: tests/%.cpp | $(BUILD_DIR)
+	g++ -c $< -o $@ $(INCLUDE_DIRECTORIES) $(CPP_FLAGS) 
 
 # Kompilacja plików .c do .o
-$(BUILD_DIR)/%.o: src/%.c | $(BUILD_DIR)
+$(BUILD_DIR)/%.o: tests/%.c | $(BUILD_DIR)
 	gcc -c $< -o $@ $(INCLUDE_DIRECTORIES) $(C_FLAGS)
 
 # Kompilacja plików .rc do .o

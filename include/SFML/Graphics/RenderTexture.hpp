@@ -254,7 +254,7 @@ private:
 ///
 /// sf::RenderTexture is the little brother of sf::RenderWindow.
 /// It implements the same 2D drawing and OpenGL-related functions
-/// (see their base class sf::RenderTarget for more details),
+/// (see their base class  for more details),
 /// the difference is that the result is stored in an off-screen
 /// texture rather than being show in a window.
 ///
@@ -309,6 +309,6 @@ private:
 /// and regular SFML drawing commands. If you need a depth buffer for
 /// 3D rendering, don't forget to request it when calling RenderTexture::create.
 ///
-/// \see sf::RenderTarget, sf::RenderWindow, sf::View, sf::Texture
+/// \see , sf::RenderWindow, sf::View, sf::Texture
 ///
 ////////////////////////////////////////////////////////////

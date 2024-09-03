@@ -169,6 +169,6 @@ public:
 /// current transform with its own transform. A sprite will
 /// set its texture. Etc.
 ///
-/// \see sf::RenderTarget, sf::Drawable
+/// \see , sf::Drawable
 ///
 ////////////////////////////////////////////////////////////

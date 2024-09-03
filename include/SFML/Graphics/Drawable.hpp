@@ -80,7 +80,7 @@ protected:
 /// \ingroup graphics
 ///
 /// sf::Drawable is a very simple base class that allows objects
-/// of derived classes to be drawn to a sf::RenderTarget.
+/// of derived classes to be drawn to a .
 ///
 /// All you have to do in your derived class is to override the
 /// draw virtual function.
@@ -100,7 +100,7 @@ protected:
 ///
 /// private:
 ///
-///     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+///     virtual void draw(& target, sf::RenderStates states) const
 ///     {
 ///         // You can draw other high-level objects
 ///         target.draw(m_sprite, states);
@@ -121,6 +121,6 @@ protected:
 /// };
 /// \endcode
 ///
-/// \see sf::RenderTarget
+/// \see 
 ///
 ////////////////////////////////////////////////////////////

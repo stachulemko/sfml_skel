@@ -484,15 +484,15 @@ private:
 
 
 ////////////////////////////////////////////////////////////
-/// \class sf::RenderTarget
+/// \class 
 /// \ingroup graphics
 ///
-/// sf::RenderTarget defines the common behavior of all the
+///  defines the common behavior of all the
 /// 2D render targets usable in the graphics module. It makes
 /// it possible to draw 2D entities like sprites, shapes, text
 /// without using any OpenGL command directly.
 ///
-/// A sf::RenderTarget is also able to use views (sf::View),
+/// A  is also able to use views (sf::View),
 /// which are a kind of 2D cameras. With views you can globally
 /// scroll, rotate or zoom everything that is drawn,
 /// without having to transform every single entity. See the

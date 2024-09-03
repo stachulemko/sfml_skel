@@ -377,7 +377,7 @@ private:
 /// \code
 /// class MyEntity : public sf::Transformable, public sf::Drawable
 /// {
-///     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+///     virtual void draw(& target, sf::RenderStates states) const
 ///     {
 ///         states.transform *= getTransform();
 ///         target.draw(..., states);
@@ -402,7 +402,7 @@ private:
 ///         myTransform.setPosition(v.x(), v.y());
 ///     }
 ///
-///     void Draw(sf::RenderTarget& target) const
+///     void Draw(& target) const
 ///     {
 ///         target.draw(..., myTransform.getTransform());
 ///     }

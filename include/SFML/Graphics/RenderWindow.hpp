@@ -207,7 +207,7 @@ private:
 ///
 /// On top of that, sf::RenderWindow adds more features related to
 /// 2D drawing with the graphics module (see its base class
-/// sf::RenderTarget for more details).
+///  for more details).
 /// Here is a typical rendering and event loop with a sf::RenderWindow:
 ///
 /// \code
@@ -286,6 +286,6 @@ private:
 /// }
 /// \endcode
 ///
-/// \see sf::Window, sf::RenderTarget, sf::RenderTexture, sf::View
+/// \see sf::Window, , sf::RenderTexture, sf::View
 ///
 ////////////////////////////////////////////////////////////
