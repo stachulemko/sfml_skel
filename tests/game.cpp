@@ -1,50 +1,54 @@
 #include <../include/game.h>
+
 Game::Game()
 {
-    this->window.create(sf::VideoMode(1200, 1000), "SFML works!");
-    //this->testsprite.setTextureRect(sf::IntRect(100, 100, 320, 320));
-    //this->testsprite.setColor(sf::Color(0, 255, 0));
-    /*this->testsprite.setPosition(100, 100);
-    if (!texture.loadFromFile("./textures/ship.png"))
+    window.create(sf::VideoMode(1200, 1000), "SFML works!");
+    button = Button(50, 50, 100, 50, sf::Color::Green);
+}
+
+void Game::processEvents()
+{
+    sf::Event event;
+    while (window.pollEvent(event))
     {
-        cout << "Can't load texture" << endl;
+        if (event.type == sf::Event::Closed)
+        {
+            window.close();
+        }
     }
-    this->testsprite.setTexture(texture);
-    this->testsprite.scale(0.1f, 0.1f);*/
-    //sf::RenderWindow window(sf::VideoMode(1200, 1000), "SFML works!");
 }
 
 void Game::update()
 {
-    while (this->window.pollEvent(this->ev))
+    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    button.update(mousePos, avatars);
+    // Aktualizacja awatarów - ruch, zatrzymanie itp.
+    for (auto &avatar : avatars)
     {
-        if (this->ev.type == sf::Event::Closed)
-            this->window.close();
-        else if (this->ev.type == sf::Event::KeyPressed && this->ev.key.code == sf::Keyboard::Escape)
-            this->window.close();
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+        {
+            cout << "right Button clicked - put avatar" << endl;
+            if (avatar.isFollowing)
+                cout << "change folowina to false" << endl;
+            avatar.isFollowing = false;
+        }
+
+        avatar.update(mousePos, avatar.isFollowing);
     }
-    //avatar_atacking.update();
-    control_panel.update();
-    button.update();
-    //bullet.update();
+}
+void Game::render()
+{
+    window.clear();
+    button.render(window);
+    for (auto &avatar : avatars)
+    {
+        avatar.render(window);
+    }
+    this->window.display();
 }
 
 const sf::RenderWindow &Game::getWindow() const
 {
     // TODO: insert return statement here
     return this->window;
-}
-
-void Game::render()
-{
-    this->window.clear();
-    this->avatar_atacking.render(this->window);
-    this->control_panel.render(this->window);
-    this->button.render(this->window);
-    //this->bullet.render(this->window);
-    //cout << "draw" << endl;
-    //this->renderTileMap();
-    //this->renderPlayer();
-    //this->window.draw(testsprite);
-    this->window.display();
 }

@@ -1,22 +1,20 @@
 #include <iostream>
-#include <SFML/Window.hpp>
-#include <control_panel.h>
-#include <button.h>
+#include <SFML/Graphics.hpp>
+#include <../include/button.h>
 class Game
 {
+
 private:
     sf::RenderWindow window;
     sf::Event ev;
-    Avatar_atacking avatar_atacking;
+    sf::Vector2i mousePosition;
     Button button;
-    //Bullet bullet;
-    Panel control_panel;
-    //sf::Sprite testsprite;
-    //sf::Texture texture;
+    std::vector<Avatar_attacking> avatars;
 
 public:
-    void update();
-    const sf::RenderWindow &getWindow() const;
-    void render();
     Game();
+    void processEvents();
+    void update();
+    void render();
+    const sf::RenderWindow &getWindow() const;
 };

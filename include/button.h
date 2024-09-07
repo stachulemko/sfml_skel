@@ -1,35 +1,19 @@
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include "avatar_atacking.h"
-#include "bullet.h"
 #include <vector>
+#include <SFML/Graphics.hpp>
+#include <../include/avatar_attacking.h>
 using namespace std;
 class Button
 {
 private:
-    float poz_x;
-    float poz_y;
-    float width;
-    float size;
-    bool isMouseOverButton;
-    sf::Sprite sprite;
-    //sf::Sprite sprite_att;
-    Avatar_atacking sprite_att;
-    sf::Texture texture;
-    bool click_flaga = true;
-    vector<Avatar_atacking> vec;
-    Avatar_atacking avatar_atacking; // Wskaźnik do Avatar_atacking
-    Bullet bullet;
+    sf::RectangleShape buttonShape;
+    bool mouseHeld = true;
+    //--------------------------------
 
 public:
-    //bool zostawiony_att = false;
     Button();
-    void enter_elements(float poz_x_, float poz_y_, float width, float size);
-    void button_make();
-    void set_postion_button();
-    void update();
+    Button(float x, float y, float width, float height, const sf::Color color);
+    bool isClicked(const sf::Vector2i &mousePos, sf::Mouse::Button button);
     void render(sf::RenderWindow &rtwindow);
-    void mechanics(sf::RenderWindow &rtwindow);
-    Avatar_atacking make_sprite_att();
-    void mechanics_defender(sf::RenderWindow &window, sf::Sprite &sprite, bool &click_flaga);
+    void update(sf::Vector2i mousePos, std::vector<Avatar_attacking> &avatars);
 };

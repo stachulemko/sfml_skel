@@ -5,101 +5,54 @@ using namespace std;
 
 Button::Button()
 {
-    poz_x = 50;  // Ustawienie pozycji X
-    poz_y = 500; // Ustawienie pozycji Y
-    width = 50;  // Ustawienie szerokości przycisku
-    size = 50;
-    std::cout << "Button position: (" << poz_x << ", " << poz_y << ") - size: (" << width << ", " << size << ")\n";
-    button_make();
-    //make_sprite_att();
-    set_postion_button();
+    buttonShape.setPosition(50, 500);
+    buttonShape.setSize(sf::Vector2f(50, 50));
+    buttonShape.setFillColor(sf::Color::Green);
 }
 
-void Button::button_make()
+Button::Button(float x, float y, float width, float height, const sf::Color color)
 {
-    sf::Image image;
-    cout << this->width << " " << this->size << endl;
-    image.create(this->width, this->size, sf::Color::Green);
-    texture.loadFromImage(image);
-    sprite.setTexture(texture);
-}
-void Button::set_postion_button()
-{
-    sprite.setPosition(poz_x, poz_y);
-}
-void Button::make_sprite_att()
-{
-    //sprite_att = avatar_atacking.Avatar_atacking_sprite();
-    sprite_att = Avatar_atacking();
+    buttonShape.setPosition(x, y);
+    buttonShape.setSize(sf::Vector2f(width, height));
+    buttonShape.setFillColor(color);
 }
 
-void Button::mechanics(sf::RenderWindow &rt)
+bool Button::isClicked(const sf::Vector2i &mousePosition, sf::Mouse::Button button)
 {
-    sf::Vector2i mousePosition = sf::Mouse::getPosition(rt);
-    isMouseOverButton = (mousePosition.x >= poz_x && mousePosition.x <= poz_x + width &&
-                         mousePosition.y >= poz_y && mousePosition.y <= poz_y + size);
-
-    if (isMouseOverButton)
+    if (sf::Mouse::isButtonPressed(button))
     {
-        sprite.setColor(sf::Color::Red);
-
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        if (buttonShape.getGlobalBounds().contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y)))
         {
-            click_flaga = false;
+            return true;
+        }
+    }
+    return false;
+}
+
+void Button::render(sf::RenderWindow &window)
+{
+    window.draw(buttonShape);
+}
+
+// Nowa metoda update, która zarządza logiką kliknięcia przycisku
+void Button::update(sf::Vector2i mousePos, std::vector<Avatar_attacking> &avatars)
+{
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        if (!mouseHeld)
+        {
+            mouseHeld = true;
+
+            // Jeśli przycisk został kliknięty, tworzymy nowy awatar
+            if (isClicked(mousePos, sf::Mouse::Left))
+            {
+                avatars.emplace_back(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y), true);
+                avatars.back().isFollowing = true;
+            }
         }
     }
     else
     {
-        sprite.setColor(sf::Color::Green);
+        mouseHeld = false;
     }
-
-    if (!click_flaga)
-    {
-        //cout << "Kliknięto przycisk!" << endl;
-        sprite_att.setPosition(mousePosition.x, mousePosition.y);
-        rt.draw(sprite_att);
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-        {
-            vec.push_back(sprite_att);
-            bullet.add_element(mousePosition.x, mousePosition.y);
-            click_flaga = true;
-        }
-    }
-}
-
-void Button::render(sf::RenderWindow &rt)
-{
-    mechanics(rt);
-    rt.draw(sprite);
-    for (int i = 0; i < vec.size(); i++)
-    {
-        ///cout << vec.size() << endl;
-        rt.draw(vec[i]);
-    }
-}
-
-void Button::mechanics_defender(sf::RenderWindow &window, sf::Sprite &sprite, bool &click_flaga2)
-{
-    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-    bool isMouseOverButton = (mousePosition.x >= poz_x && mousePosition.x <= poz_x + width &&
-                              mousePosition.y >= poz_y && mousePosition.y <= poz_y + size);
-
-    if (isMouseOverButton)
-    {
-        sprite.setColor(sf::Color::Red);
-
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        {
-            click_flaga2 = false;
-        }
-    }
-    else
-    {
-        sprite.setColor(sf::Color::Green);
-    }
-    //cout << click_flaga2 << endl;
-}
-
-void Button::update()
-{
 }
