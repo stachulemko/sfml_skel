@@ -16,24 +16,29 @@ void Game::processEvents()
             window.close();
         }
     }
+    //sf::Time timeSinceLastShot = gameClock.getElapsedTime();
 }
 
 void Game::update()
 {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    sf::Time deltaTime = gameClock.restart();
     button.update(mousePos, avatars);
     // Aktualizacja awatarów - ruch, zatrzymanie itp.
     for (auto &avatar : avatars)
     {
         if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
         {
-            cout << "right Button clicked - put avatar" << endl;
+            //cout << "right Button clicked - put avatar" << endl;
             if (avatar.isFollowing)
-                cout << "change folowina to false" << endl;
-            avatar.isFollowing = false;
+                //cout << "change folowina to false" << endl;
+                avatar.isFollowing = false;
         }
-
-        avatar.update(mousePos, avatar.isFollowing);
+        avatar.update(mousePos, avatar.isFollowing, bullets, deltaTime);
+    }
+    for (auto &bullet : bullets)
+    {
+        bullet.update(deltaTime);
     }
 }
 void Game::render()
@@ -43,6 +48,10 @@ void Game::render()
     for (auto &avatar : avatars)
     {
         avatar.render(window);
+    }
+    for (auto &bullet : bullets)
+    {
+        bullet.render(window);
     }
     this->window.display();
 }

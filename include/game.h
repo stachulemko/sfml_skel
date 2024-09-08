@@ -10,6 +10,11 @@ private:
     sf::Vector2i mousePosition;
     Button button;
     std::vector<Avatar_attacking> avatars;
+    std::vector<Bullet> bullets;
+    sf::Clock gameClock;
+    sf::Time timeSinceLastShot;
+    sf::Time time;
+    sf::Time deltaTime = gameClock.restart();
 
 public:
     Game();

@@ -1,6 +1,5 @@
 #include <../include/button.h>
-#include <iostream>
-#include <SFML/Graphics.hpp>
+
 using namespace std;
 
 Button::Button()
@@ -46,7 +45,9 @@ void Button::update(sf::Vector2i mousePos, std::vector<Avatar_attacking> &avatar
             // Jeśli przycisk został kliknięty, tworzymy nowy awatar
             if (isClicked(mousePos, sf::Mouse::Left))
             {
-                avatars.emplace_back(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y), true);
+                //avatars.emplace_back(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y), true);
+                Avatar_attacking a = Avatar_attacking(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y), true);
+                avatars.push_back(a);
                 avatars.back().isFollowing = true;
             }
         }
